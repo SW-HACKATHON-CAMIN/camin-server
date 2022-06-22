@@ -3,6 +3,7 @@ package com.cafe.swhackathonserver.user.domain;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
 import com.cafe.swhackathonserver.common.BaseEntity;
 import com.cafe.swhackathonserver.order.domain.Order;
+import com.cafe.swhackathonserver.user.application.dto.AuthResponse;
 import com.cafe.swhackathonserver.user.domain.like.Like;
 import com.cafe.swhackathonserver.user.domain.visit.Visit;
 import lombok.AllArgsConstructor;
@@ -22,11 +23,17 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
+    private String profileImageUrl;
+
     private String token;
 
     private String kakaoId;
 
-    private boolean admin;
+    private Boolean admin;
+
+    private String businessRegistrationNumber;
 
     @OneToMany(mappedBy = "user")
     private List<Visit> visits = new ArrayList<>();
@@ -40,7 +47,27 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
+
     public void setCafe(Cafe cafe){
         this.cafe = cafe;
     };
+
+    public User(String name, String profileImageUrl, String kakaoId, boolean admin) {
+        this.name = name;
+        this.profileImageUrl = profileImageUrl;
+        this.kakaoId = kakaoId;
+        this.admin = admin;
+    }
+
+    public AuthResponse toAuthResponse() {
+        return new AuthResponse(id, name, profileImageUrl, kakaoId, admin, businessRegistrationNumber, getCreatedAt(), getUpdateAt());
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    public void setBusinessRegistrationNumber(String businessRegistrationNumber) {
+        this.businessRegistrationNumber = businessRegistrationNumber;
+    }
 }
