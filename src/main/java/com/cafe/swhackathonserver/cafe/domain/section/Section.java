@@ -27,4 +27,5 @@ public class Section {
     }
 
     public void addCafeSection(CafeSection cafeSection) {this.cafeSections.add(cafeSection);}
+
 }

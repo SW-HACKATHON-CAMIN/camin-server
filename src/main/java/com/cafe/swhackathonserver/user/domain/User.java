@@ -34,7 +34,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Like> likes = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(mappedBy = "manager")
     private Cafe cafe;
 
     @OneToMany(mappedBy = "user")

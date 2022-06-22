@@ -9,6 +9,7 @@ import com.cafe.swhackathonserver.category.application.CategoryRepository;
 import com.cafe.swhackathonserver.cafe.domain.repository.SectionRepository;
 import com.cafe.swhackathonserver.cafe.domain.section.Section;
 import com.cafe.swhackathonserver.cafe.presentation.dto.request.CafeCreateRequest;
+import com.cafe.swhackathonserver.exception.cafe.CafeNotFoundException;
 import com.cafe.swhackathonserver.user.domain.User;
 import com.cafe.swhackathonserver.user.domain.repository.UserRepository;
 
@@ -50,5 +51,12 @@ public class CafeService {
 
         Cafe savedCafe = cafeRepository.save(newCafe);
         return savedCafe.getId();
+    }
+
+    @Transactional
+    public Long delete(Long id){
+        Cafe cafe = cafeRepository.findById(id).orElseThrow(CafeNotFoundException::new);
+        cafeRepository.delete(cafe);
+        return id;
     }
 }

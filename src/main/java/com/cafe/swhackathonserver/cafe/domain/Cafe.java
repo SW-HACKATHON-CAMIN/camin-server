@@ -32,7 +32,7 @@ public class Cafe extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "cafe")
+    @OneToOne
     private User manager;
 
     private String infoImage;
@@ -60,7 +60,7 @@ public class Cafe extends BaseEntity {
     private float longitude;
 
     @Builder.Default
-    @OneToMany(mappedBy = "section", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "cafe", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CafeSection> cafeSections = new ArrayList<>();
 
     @Builder.Default
@@ -112,9 +112,6 @@ public class Cafe extends BaseEntity {
     }
 
     public void addImages(List<String> cafeImages) {
-        cafeImages.forEach(el -> {
-            System.out.println(el);
-        });
         cafeImages.forEach(this::addImage);
     }
 
@@ -122,5 +119,6 @@ public class Cafe extends BaseEntity {
         this.manager = user;
         user.setCafe(this);
     }
+
 }
 

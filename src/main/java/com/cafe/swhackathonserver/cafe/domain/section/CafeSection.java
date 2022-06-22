@@ -32,4 +32,5 @@ public class CafeSection {
         this.section = section;
         this.count = count;
     }
+
 }

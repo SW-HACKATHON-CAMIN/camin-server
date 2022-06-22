@@ -20,4 +20,10 @@ public class CafeController {
         Long createdId = cafeService.create(request);
         return ResponseEntity.ok(createdId);
     }
+
+    @DeleteMapping("/{cafeId}")
+    public ResponseEntity<Long> delete(@PathVariable Long cafeId){
+        Long id = cafeService.delete(cafeId);
+        return ResponseEntity.ok(id);
+    }
 }
