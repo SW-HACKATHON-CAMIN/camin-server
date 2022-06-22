@@ -22,4 +22,10 @@ public class SectionService {
         Section savedSection = sectionRepository.save(new Section(name));
         return savedSection.getId();
     }
+
+    @Transactional
+    public Long deleteSection(Long id){
+        sectionRepository.deleteById(id);
+        return id;
+    }
 }
