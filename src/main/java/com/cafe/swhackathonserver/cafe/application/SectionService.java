@@ -3,6 +3,7 @@ package com.cafe.swhackathonserver.cafe.application;
 import com.cafe.swhackathonserver.cafe.domain.repository.SectionRepository;
 import com.cafe.swhackathonserver.cafe.domain.section.Section;
 import com.cafe.swhackathonserver.exception.section.SectionDuplicationException;
+import com.cafe.swhackathonserver.exception.section.SectionNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,8 @@ public class SectionService {
 
     @Transactional
     public Long deleteSection(Long id){
-        sectionRepository.deleteById(id);
+        Section section = sectionRepository.findById(id).orElseThrow(SectionNotFoundException::new);
+        sectionRepository.delete(section);
         return id;
     }
 }

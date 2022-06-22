@@ -23,7 +23,7 @@ public class SectionController {
         return ResponseEntity.ok(sectionId);
     }
 
-    @DeleteMapping("{sectionId}")
+    @DeleteMapping("/{sectionId}")
     public ResponseEntity<Long> deleteSection(@PathVariable Long sectionId){
         Long deletedId = sectionService.deleteSection(sectionId);
         return ResponseEntity.ok(deletedId);
