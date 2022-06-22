@@ -1,5 +1,6 @@
 package com.cafe.swhackathonserver.user.application;
 
+import com.cafe.swhackathonserver.exception.user.UserDuplicatedException;
 import com.cafe.swhackathonserver.exception.user.UserNotFoundException;
 import com.cafe.swhackathonserver.user.domain.User;
 import com.cafe.swhackathonserver.user.domain.repository.UserRepository;
@@ -14,6 +15,10 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User save(User user) {
+        if (userRepository.existsByKakaoId(user.getKakaoId())) {
+            throw new UserDuplicatedException();
+        }
+
         return userRepository.save(user);
     }
 
