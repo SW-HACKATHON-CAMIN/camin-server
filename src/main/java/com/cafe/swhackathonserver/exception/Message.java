@@ -9,4 +9,5 @@ public class Message {
     public static final String CAFE_NOT_FOUND = "존재하지 않는 카페입니다.";
     public static final String MENU_NAME_BLANK_EXCEPTION = "메뉴의 이름이 없습니다.";
     public static final String MENU_PRICE_EXCEPTION = "메뉴의 가격은 음수일 수 없습니다.";
+    public static final String MENU_NOT_FOUND = "존재하지 않는 메뉴입니다.";
 }
