@@ -1,7 +1,7 @@
-package com.cafe.swhackathonserver.cafe.domain.repository;
+package com.cafe.swhackathonserver.category.application;
 
 
-import com.cafe.swhackathonserver.cafe.domain.category.Category;
+import com.cafe.swhackathonserver.category.domain.Category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

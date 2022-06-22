@@ -1,4 +1,4 @@
-package com.cafe.swhackathonserver.cafe.presentation;
+package com.cafe.swhackathonserver.category.presentation;
 
 import java.util.List;
 import java.util.stream.Collectors;
