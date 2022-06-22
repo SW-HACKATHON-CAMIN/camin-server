@@ -1,5 +1,6 @@
 package com.cafe.swhackathonserver.cafe.domain.section;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -18,6 +19,13 @@ public class Section {
 
     private String name;
 
-    @OneToMany(mappedBy = "section")
-    private List<CafeSection> cafeSections;
+    @OneToMany(mappedBy = "section", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CafeSection> cafeSections = new ArrayList<>();
+
+    public Section(String name) {
+        this.name = name;
+    }
+
+    public void addCafeSection(CafeSection cafeSection) {this.cafeSections.add(cafeSection);}
+
 }
