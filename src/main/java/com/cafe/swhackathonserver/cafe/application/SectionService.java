@@ -16,7 +16,7 @@ public class SectionService {
     private final SectionRepository sectionRepository;
 
     @Transactional
-    public Long createSection(String name){
+    public Long create(String name){
         if(sectionRepository.existsByName(name))
             throw new SectionDuplicationException();
 
@@ -25,7 +25,7 @@ public class SectionService {
     }
 
     @Transactional
-    public Long deleteSection(Long id){
+    public Long delete(Long id){
         Section section = sectionRepository.findById(id).orElseThrow(SectionNotFoundException::new);
         sectionRepository.delete(section);
         return id;
