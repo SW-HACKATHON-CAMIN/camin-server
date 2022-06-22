@@ -23,6 +23,9 @@ public class Category extends BaseEntity {
 
     private String name;
 
+    // 0 방문인원, 1 목적, 2 카테고리, 3 경험
+    private int type;
+    
     @OneToMany(mappedBy = "category")
     private List<CafeCategory> cafeCategories = new ArrayList<>();
 }
