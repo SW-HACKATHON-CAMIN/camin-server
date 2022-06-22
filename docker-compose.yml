@@ -1,0 +1,66 @@
+version: "3.7"
+
+services:
+  database:
+    container_name: swhackathon_db
+    image: library/mysql:8.0.26
+    cap_add:
+      - SYS_NICE
+    environment:
+      MYSQL_USER: swhackathonuser
+      MYSQL_DATABASE: swhackathon
+      MYSQL_PASSWORD: swhackathon2022!@
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    volumes:
+      - "./database/:/var/project/db"
+    ports:
+      - "3306:3306"
+    networks:
+      - backend-network
+
+  spring-boot:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: swhackathon_backend
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    container_name: swhackathon_backend
+    restart: always
+    depends_on:
+      - database
+      - object-storage
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://swhackathon_db:3306/swhackathon?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      SPRING_DATASOURCE_USERNAME: swhackathonuser
+      SPRING_DATASOURCE_PASSWORD: swhackathon2022!@
+    networks:
+      - backend-network
+
+  object-storage:
+    image: minio/minio
+    restart: unless-stopped
+    volumes:
+      - ./data/minio:/bucket
+    env_file: ./env/.env
+    command: server --address ":9000" --console-address ":9100" /bucket
+    ports:
+      - 9000:9000
+      - 9100:9100
+    networks:
+      - backend-network
+#
+#  jenkins:
+#    image: jenkins/jenkins:lts
+#    restart: unless-stopped
+#    volumes:
+#      - ./jenkins:/jenkins
+#    ports:
+#      - "50000:50000"
+#    networks:
+#      - backend-network
+
+networks:
+  backend-network:
