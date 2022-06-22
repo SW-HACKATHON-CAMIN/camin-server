@@ -1,5 +1,6 @@
 package com.cafe.swhackathonserver.order.domain.orderdetail;
 
+import com.cafe.swhackathonserver.common.BaseEntity;
 import com.cafe.swhackathonserver.order.domain.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.awt.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class OrderDetail {
+public class OrderDetail extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,3 +31,4 @@ public class OrderDetail {
 
     private Menu menu;
 }
+

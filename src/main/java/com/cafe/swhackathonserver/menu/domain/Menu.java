@@ -1,6 +1,8 @@
 package com.cafe.swhackathonserver.menu.domain;
 
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
+import com.cafe.swhackathonserver.common.BaseEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Menu {
+public class Menu extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,5 +1,7 @@
 package com.cafe.swhackathonserver.user.domain;
 
+import com.cafe.swhackathonserver.cafe.domain.Cafe;
+import com.cafe.swhackathonserver.common.BaseEntity;
 import com.cafe.swhackathonserver.order.domain.Order;
 import com.cafe.swhackathonserver.user.domain.like.Like;
 import com.cafe.swhackathonserver.user.domain.visit.Visit;
@@ -15,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,9 +34,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Like> likes = new ArrayList<>();
 
-//    @OneToOne
-//    @JoinColumn(name="id")
-//    private Cafe cafe;
+    @OneToOne
+    private Cafe cafe;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();

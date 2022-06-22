@@ -1,26 +1,32 @@
-package com.cafe.swhackathonserver.user.domain.visit;
+package com.cafe.swhackathonserver.experience.domain;
+
+import javax.persistence.*;
 
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
 import com.cafe.swhackathonserver.common.BaseEntity;
+import com.cafe.swhackathonserver.experience.domain.experience_category.ExperienceCategory;
 import com.cafe.swhackathonserver.user.domain.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Visit extends BaseEntity {
+public class Experience extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Cafe cafe;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ExperienceCategory experienceCategory;
 }
