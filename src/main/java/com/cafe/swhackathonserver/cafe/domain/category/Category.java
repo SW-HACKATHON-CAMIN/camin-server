@@ -3,8 +3,7 @@ package com.cafe.swhackathonserver.cafe.domain.category;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cafe.swhackathonserver.cafe.application.dto.CategoryCreateDto;
-import com.cafe.swhackathonserver.cafe.domain.Cafe;
+import com.cafe.swhackathonserver.cafe.application.dto.category.CategoryCreateDto;
 import com.cafe.swhackathonserver.common.BaseEntity;
 
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.cafe.swhackathonserver.cafe.application.dto;
+package com.cafe.swhackathonserver.cafe.application.dto.category;
 
 import com.cafe.swhackathonserver.cafe.presentation.dto.request.CategoryCreateRequest;
 
