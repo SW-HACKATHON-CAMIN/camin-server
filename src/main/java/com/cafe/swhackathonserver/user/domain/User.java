@@ -31,7 +31,9 @@ public class User extends BaseEntity {
 
     private String kakaoId;
 
-    private boolean admin;
+    private Boolean admin;
+
+    private String businessRegistrationNumber;
 
     @OneToMany(mappedBy = "user")
     private List<Visit> visits = new ArrayList<>();
@@ -53,6 +55,14 @@ public class User extends BaseEntity {
     }
 
     public AuthResponse toAuthResponse() {
-        return new AuthResponse(id, name, profileImageUrl, kakaoId, admin, getCreatedAt());
+        return new AuthResponse(id, name, profileImageUrl, kakaoId, admin, businessRegistrationNumber, getCreatedAt(), getUpdateAt());
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    public void setBusinessRegistrationNumber(String businessRegistrationNumber) {
+        this.businessRegistrationNumber = businessRegistrationNumber;
     }
 }

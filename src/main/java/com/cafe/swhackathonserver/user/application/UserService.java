@@ -31,4 +31,20 @@ public class UserService {
 
         return userOptional.get();
     }
+
+    public User findById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+
+        return userOptional.get();
+    }
+
+    public User updateAdminStatusById(Long id, String businessRegistrationNumber) {
+        User user = findById(id);
+        user.setAdmin(true);
+        user.setBusinessRegistrationNumber(businessRegistrationNumber);
+        return userRepository.save(user);
+    }
 }
