@@ -1,5 +1,6 @@
 package com.cafe.swhackathonserver.order.domain;
 
+import com.cafe.swhackathonserver.common.BaseEntity;
 import com.cafe.swhackathonserver.order.domain.orderdetail.OrderDetail;
 import com.cafe.swhackathonserver.user.domain.User;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Order {
+public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
