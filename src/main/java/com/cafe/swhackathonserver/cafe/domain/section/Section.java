@@ -19,10 +19,12 @@ public class Section {
 
     private String name;
 
-    @OneToMany(mappedBy = "section")
+    @OneToMany(mappedBy = "section", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CafeSection> cafeSections = new ArrayList<>();
 
     public Section(String name) {
         this.name = name;
     }
+
+    public void addCafeSection(CafeSection cafeSection) {this.cafeSections.add(cafeSection);}
 }

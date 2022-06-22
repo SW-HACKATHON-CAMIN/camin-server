@@ -1,6 +1,6 @@
 package com.cafe.swhackathonserver.cafe.application.dto.category;
 
-import com.cafe.swhackathonserver.cafe.domain.category.Category;
+import com.cafe.swhackathonserver.category.domain.Category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

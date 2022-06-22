@@ -27,4 +27,9 @@ public class CafeSection {
     @ManyToOne(fetch = FetchType.LAZY)
     private Section section;
 
+    public CafeSection(Cafe cafe, Section section, int count) {
+        this.cafe = cafe;
+        this.section = section;
+        this.count = count;
+    }
 }

@@ -22,13 +22,13 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<Long> createCategory(@RequestBody CategoryCreateRequest request){
-        Long id = categoryService.createCategory(CategoryCreateDto.from(request));
+        Long id = categoryService.create(CategoryCreateDto.from(request));
         return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<Long> deleteCategory(@PathVariable Long categoryId){
-        Long id = categoryService.deleteCategory(categoryId);
+        Long id = categoryService.delete(categoryId);
         return ResponseEntity.ok(id);
     }
 

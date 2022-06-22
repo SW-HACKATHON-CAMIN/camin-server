@@ -39,4 +39,8 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
+
+    public void setCafe(Cafe cafe){
+        this.cafe = cafe;
+    };
 }

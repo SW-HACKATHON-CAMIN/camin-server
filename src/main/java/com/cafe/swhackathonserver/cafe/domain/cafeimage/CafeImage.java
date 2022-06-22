@@ -22,4 +22,9 @@ public class CafeImage extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Cafe cafe;
+
+    public CafeImage(String url, Cafe cafe) {
+        this.url = url;
+        this.cafe = cafe;
+    }
 }

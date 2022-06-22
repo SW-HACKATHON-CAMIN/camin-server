@@ -1,4 +1,4 @@
-package com.cafe.swhackathonserver.cafe.domain.category;
+package com.cafe.swhackathonserver.category.domain;
 
 import javax.persistence.*;
 
@@ -23,4 +23,9 @@ public class CafeCategory extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    public CafeCategory(Cafe cafe, Category category) {
+        this.cafe = cafe;
+        this.category = category;
+    }
 }
