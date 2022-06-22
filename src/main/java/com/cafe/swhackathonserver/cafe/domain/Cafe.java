@@ -120,5 +120,8 @@ public class Cafe extends BaseEntity {
         user.setCafe(this);
     }
 
+    public void addMenu(Menu menu){
+        this.menus.add(menu);
+    }
 }
 
