@@ -5,10 +5,7 @@ import com.cafe.swhackathonserver.menu.application.dto.MenuCreateDto;
 import com.cafe.swhackathonserver.menu.presentation.dto.request.MenuCreateRequest;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,4 +20,11 @@ public class MenuController {
         Long id = menuService.create(request.getCafeId(), MenuCreateDto.from(request));
         return ResponseEntity.ok(id);
     }
+
+    @DeleteMapping("/{menuId}")
+    public ResponseEntity<Long> delete(@PathVariable Long menuId){
+        Long id = menuService.delete(menuId);
+        return ResponseEntity.ok(id);
+    }
+
 }
