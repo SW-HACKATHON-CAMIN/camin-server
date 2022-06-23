@@ -6,5 +6,7 @@ import java.util.List;
 
 @Data
 public class OrderRequest {
+    private Long userId;
+    private Long cafeId;
     private List<OrderDetailRequest> orderDetailRequestList;
 }
