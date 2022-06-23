@@ -1,5 +1,6 @@
 package com.cafe.swhackathonserver.cafe.presentation.dto.request;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import lombok.Getter;
@@ -18,8 +19,8 @@ public class CafeCreateRequest {
     private String introduction;
     private String cafeName;
     private String event;
-    private float latitude;
-    private float longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     private List<Long> sectionIds;
     private List<Integer> sectionCounts;
     private List<Long> categoryIds;

@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +56,11 @@ public class Cafe extends BaseEntity {
 
     private String event;
 
-    private float latitude;
+    @Column(precision = 13, scale=10)
+    private BigDecimal latitude;
 
-    private float longitude;
+    @Column(precision = 13, scale=10)
+    private BigDecimal longitude;
 
     @Builder.Default
     @OneToMany(mappedBy = "cafe", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -97,8 +100,10 @@ public class Cafe extends BaseEntity {
 
     public void addSections(List<Section> sections, List<Integer> sectionCounts) {
 
-        if (sections.size() != sectionCounts.size())
+        if (sections.size() != sectionCounts.size()){
             throw new CafeSectionInfoException();
+        }
+
 
         for (int i = 0; i < sections.size(); i++) {
             addSection(sections.get(i), sectionCounts.get(i));
@@ -123,5 +128,11 @@ public class Cafe extends BaseEntity {
     public void addMenu(Menu menu){
         this.menus.add(menu);
     }
+
+    public void like(Like like){
+        this.likes.add(like);
+    }
+
+    public void unlike(Like like) {this.likes.remove(like); }
 }
 

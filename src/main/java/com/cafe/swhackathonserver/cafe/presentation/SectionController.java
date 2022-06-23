@@ -21,7 +21,7 @@ public class SectionController {
 
     @ApiOperation(value = ApiDoc.CREATE_SECTION)
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody SectionCreateRequest request){
+    public ResponseEntity<Long> crate(@RequestBody SectionCreateRequest request){
         Long sectionId = sectionService.create(request.getName());
         return ResponseEntity.ok(sectionId);
     }

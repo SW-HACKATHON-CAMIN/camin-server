@@ -24,4 +24,14 @@ public class Like extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Cafe cafe;
+
+    public Like(User user, Cafe cafe) {
+        this.user = user;
+        this.cafe = cafe;
+    }
+
+    public void unlike(){
+        this.user.unLike(this);
+        this.cafe.unlike(this);
+    }
 }

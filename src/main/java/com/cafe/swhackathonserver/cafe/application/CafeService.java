@@ -2,6 +2,7 @@ package com.cafe.swhackathonserver.cafe.application;
 
 import java.util.List;
 
+import com.cafe.swhackathonserver.cafe.application.dto.CafeDetailDto;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
 import com.cafe.swhackathonserver.category.domain.Category;
 import com.cafe.swhackathonserver.cafe.domain.repository.CafeRepository;
@@ -59,4 +60,11 @@ public class CafeService {
         cafeRepository.delete(cafe);
         return id;
     }
+
+    @Transactional(readOnly = true)
+    public CafeDetailDto findById(Long cafeId){
+        Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(CafeNotFoundException::new);
+        return new CafeDetailDto(cafe);
+    }
+
 }
