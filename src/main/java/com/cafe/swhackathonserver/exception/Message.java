@@ -16,5 +16,6 @@ public class Message {
     public static final String CAFE_NO_IMAGE = "카페의 이미지가 존재하지 않습니다.";
     public static final String KAKAO_TOKEN_NOT_FOUND = "카카오 토큰 발급에 실패하였습니다.";
     public static final String ORDER_NOT_FOUND = "주문 정보를 찾을 수 없습니다.";
+    public static final String CAFE_SECTION_NOT_FOUND = "해당 섹션을 찾을 수 없습니다.";
 }
 
