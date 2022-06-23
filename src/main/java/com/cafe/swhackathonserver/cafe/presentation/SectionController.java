@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cafe.swhackathonserver.cafe.application.SectionService;
 import com.cafe.swhackathonserver.cafe.application.dto.section.SectionInfoDto;
+import com.cafe.swhackathonserver.cafe.presentation.dto.request.SectionChangeRequest;
 import com.cafe.swhackathonserver.cafe.presentation.dto.request.SectionCreateRequest;
 import com.cafe.swhackathonserver.doc.ApiDoc;
 import io.swagger.annotations.ApiOperation;
@@ -40,5 +41,12 @@ public class SectionController {
     public ResponseEntity<List<SectionInfoDto>> findAdminSections(@PathVariable Long managerId){
         List<SectionInfoDto> response = sectionService.findAdminSections(managerId);
         return ResponseEntity.ok(response);
+    }
+
+    @ApiOperation(value = ApiDoc.CHANGE_SECTION_STATUS)
+    @PutMapping("/admin/status")
+    public ResponseEntity<Boolean> changeSectionStatus(@RequestBody SectionChangeRequest request){
+        sectionService.changeSectionStatus(request.getCafeSectionId(), request.getStatus());
+        return ResponseEntity.ok(true);
     }
 }

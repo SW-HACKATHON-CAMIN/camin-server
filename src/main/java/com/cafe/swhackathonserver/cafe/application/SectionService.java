@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 import com.cafe.swhackathonserver.cafe.application.dto.section.SectionInfoDto;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
 import com.cafe.swhackathonserver.cafe.domain.repository.CafeRepository;
+import com.cafe.swhackathonserver.cafe.domain.repository.CafeSectionRepository;
 import com.cafe.swhackathonserver.cafe.domain.repository.SectionRepository;
+import com.cafe.swhackathonserver.cafe.domain.section.CafeSection;
 import com.cafe.swhackathonserver.cafe.domain.section.Section;
 import com.cafe.swhackathonserver.exception.section.SectionDuplicationException;
 import com.cafe.swhackathonserver.exception.section.SectionNotFoundException;
@@ -25,6 +27,7 @@ public class SectionService {
     private final SectionRepository sectionRepository;
     private final CafeRepository cafeRepository;
     private final UserRepository userRepository;
+    private final CafeSectionRepository cafeSectionRepository;
 
     @Transactional
     public Long create(String name){
@@ -47,5 +50,11 @@ public class SectionService {
         User user = userRepository.findById(managerId).orElseThrow(UserNotFoundException::new);
         Cafe cafe = cafeRepository.findFirstByManager(user);
         return cafe.getCafeSections().stream().map(SectionInfoDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void changeSectionStatus(Long sectionId, int status){
+        CafeSection cafeSection = cafeSectionRepository.findById(sectionId).orElseThrow(SectionNotFoundException::new);
+        cafeSection.updateStatus(status);
     }
 }
