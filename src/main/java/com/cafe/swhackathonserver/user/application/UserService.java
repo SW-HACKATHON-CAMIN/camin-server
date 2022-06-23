@@ -44,6 +44,10 @@ public class UserService {
     }
 
     @Transactional
+    public Optional<User> findOptionalByKakaoId(String kakaoId) {
+        return userRepository.findByKakaoId(kakaoId);
+    }
+
     public User findById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
