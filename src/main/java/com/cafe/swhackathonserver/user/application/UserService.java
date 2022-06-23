@@ -1,5 +1,6 @@
 package com.cafe.swhackathonserver.user.application;
 
+import com.cafe.swhackathonserver.cafe.application.dto.CafeFavoriteDto;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
 import com.cafe.swhackathonserver.cafe.domain.repository.CafeRepository;
 import com.cafe.swhackathonserver.exception.cafe.CafeNotFoundException;
@@ -10,12 +11,16 @@ import com.cafe.swhackathonserver.user.domain.User;
 import com.cafe.swhackathonserver.user.domain.like.Like;
 import com.cafe.swhackathonserver.user.domain.repository.LikeRepository;
 import com.cafe.swhackathonserver.user.domain.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,7 +71,7 @@ public class UserService {
     }
 
     @Transactional
-    public Boolean likeCafe(Long userId, Long cafeId){
+    public Boolean likeCafe(Long userId, Long cafeId) {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(CafeNotFoundException::new);
 
@@ -76,12 +81,12 @@ public class UserService {
     }
 
     @Transactional
-    public Boolean unLikeCafe(Long userId, long cafeId){
+    public Boolean unLikeCafe(Long userId, long cafeId) {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(CafeNotFoundException::new);
 
         Like like = likeRepository.findFirstByUserAndCafe(user, cafe);
-        if(Objects.isNull(like))
+        if (Objects.isNull(like))
             throw new LikeNotFoundException();
 
         like.unlike();
@@ -89,5 +94,12 @@ public class UserService {
 
 
         return true;
+    }
+
+    @Transactional(readOnly = true)
+    public List<CafeFavoriteDto> findLikeCafes(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        List<Like> likes = likeRepository.findLikeByUser(user);
+        return likes.stream().map(like -> new CafeFavoriteDto(like.getCafe())).collect(Collectors.toList());
     }
 }

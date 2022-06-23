@@ -1,5 +1,10 @@
 package com.cafe.swhackathonserver.cafe.application;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import com.cafe.swhackathonserver.cafe.application.dto.CafeDetailDto;
 import com.cafe.swhackathonserver.cafe.application.dto.CafeSimpleDto;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
@@ -36,15 +41,17 @@ public class CafeService {
     public Long create(CafeCreateRequest cafeCreateDto) {
 
         Cafe newCafe = Cafe.builder()
-                .infoImage(cafeCreateDto.getInfoImage())
-                .address(cafeCreateDto.getAddress())
-                .phone(cafeCreateDto.getPhone())
-                .introduction(cafeCreateDto.getIntroduction())
-                .cafeName(cafeCreateDto.getCafeName())
-                .event(cafeCreateDto.getEvent())
-                .latitude(cafeCreateDto.getLatitude())
-                .longitude(cafeCreateDto.getLongitude())
-                .build();
+                           .infoImage(cafeCreateDto.getInfoImage())
+                           .mainImage(cafeCreateDto.getMainImage())
+                           .address(cafeCreateDto.getAddress())
+                           .phone(cafeCreateDto.getPhone())
+                           .introduction(cafeCreateDto.getIntroduction())
+                           .cafeName(cafeCreateDto.getCafeName())
+                           .event(cafeCreateDto.getEvent())
+                           .latitude(cafeCreateDto.getLatitude())
+                           .longitude(cafeCreateDto.getLongitude())
+                           .build();
+
 
         User user = userRepository.findById(cafeCreateDto.getManagerId()).orElseThrow();
         List<Category> categories = categoryRepository.findAllById(cafeCreateDto.getCategoryIds());
@@ -67,9 +74,10 @@ public class CafeService {
     }
 
     @Transactional(readOnly = true)
-    public CafeDetailDto findById(Long cafeId) {
+    public CafeDetailDto findById(Long cafeId, Long userId) {
         Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(CafeNotFoundException::new);
-        return new CafeDetailDto(cafe);
+        long id = Objects.isNull(userId) ? -1 : userId;
+        return new CafeDetailDto(cafe, id);
     }
 
     @Transactional(readOnly = true)

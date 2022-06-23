@@ -21,7 +21,7 @@ public class CafeSimpleDto {
     private int status;
     private String cafeName;
     private String address;
-    private String cafeImage;
+    private String mainImage;
     private BigDecimal latitude;
     private BigDecimal longitude;
     private List<CategoryDto> categories = new ArrayList<>();
@@ -31,11 +31,7 @@ public class CafeSimpleDto {
         this.status = status;
         this.cafeName = cafe.getCafeName();
         this.address = cafe.getAddress();
-        this.cafeImage = cafe.getImages()
-                             .stream()
-                             .findFirst()
-                             .orElseThrow(CafeNoImageException::new)
-                             .getUrl();
+        this.mainImage = cafe.getMainImage();
         this.latitude = cafe.getLatitude();
         this.longitude = cafe.getLongitude();
         this.categories = cafe.getCafeCategories()

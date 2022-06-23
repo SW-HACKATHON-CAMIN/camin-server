@@ -38,6 +38,8 @@ public class Cafe extends BaseEntity {
 
     private String infoImage;
 
+    private String mainImage;
+
     @Builder.Default
     @OneToMany(mappedBy = "cafe", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CafeImage> images = new ArrayList<>();
