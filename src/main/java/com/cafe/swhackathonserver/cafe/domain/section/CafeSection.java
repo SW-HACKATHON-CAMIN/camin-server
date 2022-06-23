@@ -33,4 +33,8 @@ public class CafeSection {
         this.section = section;
         this.totalCount = totalCount;
     }
+
+    public void updateStatus(int status){
+        this.status = status;
+    }
 }
