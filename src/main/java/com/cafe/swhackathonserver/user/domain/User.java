@@ -70,4 +70,13 @@ public class User extends BaseEntity {
     public void setBusinessRegistrationNumber(String businessRegistrationNumber) {
         this.businessRegistrationNumber = businessRegistrationNumber;
     }
+
+    public void like(Cafe cafe){
+        Like like = new Like(this, cafe);
+        this.likes.add(like);
+        cafe.like(like);
+    }
+    public void unLike(Like like){
+        this.likes.remove(like);
+    }
 }
