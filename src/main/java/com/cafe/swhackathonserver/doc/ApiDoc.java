@@ -7,4 +7,13 @@ public class ApiDoc {
     public static final String FIND_USER_BY_ID = "아이디로 사용자 조회";
     public static final String UPLOAD_IMAGE = "이미지 한장 업로드";
     public static final String UPLOAD_IMAGE_LIST = "이미지 여러장 업로드";
+    public static final String CREATE_CAFE = "카페 생성";
+    public static final String CREATE_SECTION = "섹션 생성";
+    public static final String CREATE_CATEGORY = "카테고리 생성";
+    public static final String CREATE_MENU = "메뉴 생성";
+    public static final String DELETE_CAFE = "카페 삭제";
+    public static final String DELETE_SECTION = "섹션 삭제";
+    public static final String DELETE_CATEGORY = "카테고리 삭제";
+    public static final String DELETE_MENU = "메뉴 삭제";
+    public static final String FIND_ALL_CATEGORY = "모든 카테고리 조회";
 }
