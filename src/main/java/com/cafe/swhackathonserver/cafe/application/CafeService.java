@@ -9,22 +9,24 @@ import com.cafe.swhackathonserver.cafe.application.dto.CafeDetailDto;
 import com.cafe.swhackathonserver.cafe.application.dto.CafeSimpleDto;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
 import com.cafe.swhackathonserver.cafe.domain.repository.CafeCategoryRepository;
-import com.cafe.swhackathonserver.cafe.domain.section.CafeSection;
-import com.cafe.swhackathonserver.category.domain.CafeCategory;
-import com.cafe.swhackathonserver.category.domain.Category;
 import com.cafe.swhackathonserver.cafe.domain.repository.CafeRepository;
-import com.cafe.swhackathonserver.category.application.CategoryRepository;
 import com.cafe.swhackathonserver.cafe.domain.repository.SectionRepository;
+import com.cafe.swhackathonserver.cafe.domain.section.CafeSection;
 import com.cafe.swhackathonserver.cafe.domain.section.Section;
 import com.cafe.swhackathonserver.cafe.presentation.dto.request.CafeCreateRequest;
+import com.cafe.swhackathonserver.category.application.CategoryRepository;
+import com.cafe.swhackathonserver.category.domain.CafeCategory;
+import com.cafe.swhackathonserver.category.domain.Category;
 import com.cafe.swhackathonserver.exception.cafe.CafeNotFoundException;
 import com.cafe.swhackathonserver.user.domain.User;
 import com.cafe.swhackathonserver.user.domain.repository.UserRepository;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.RequiredArgsConstructor;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +51,7 @@ public class CafeService {
                            .latitude(cafeCreateDto.getLatitude())
                            .longitude(cafeCreateDto.getLongitude())
                            .build();
+
 
         User user = userRepository.findById(cafeCreateDto.getManagerId()).orElseThrow();
         List<Category> categories = categoryRepository.findAllById(cafeCreateDto.getCategoryIds());
@@ -81,12 +84,12 @@ public class CafeService {
     public List<CafeSimpleDto> findByFilter(BigDecimal latitude, BigDecimal longitude, List<Long> categoryIds) {
         List<CafeCategory> cafeCategories = cafeCategoryRepository.findCafeByLocationAndFilter(latitude, longitude, categoryIds);
         List<Cafe> cafes = cafeCategories.stream()
-                                         .map(CafeCategory::getCafe)
-                                         .collect(Collectors.toList());
+                .map(CafeCategory::getCafe)
+                .collect(Collectors.toList());
         return cafes.stream()
-                    .distinct()
-                    .map(cafe -> new CafeSimpleDto(cafe, getAverageStatus(cafe.getCafeSections())))
-                    .collect(Collectors.toList());
+                .distinct()
+                .map(cafe -> new CafeSimpleDto(cafe, getAverageStatus(cafe.getCafeSections())))
+                .collect(Collectors.toList());
 
 
     }
@@ -102,5 +105,9 @@ public class CafeService {
         return sum / size;
     }
 
-
+    @Transactional(readOnly = true)
+    public Cafe findCafeById(Long cafeId) {
+        Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(CafeNotFoundException::new);
+        return cafe;
+    }
 }

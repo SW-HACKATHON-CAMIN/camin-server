@@ -1,21 +1,19 @@
 package com.cafe.swhackathonserver.cafe.presentation;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import com.cafe.swhackathonserver.cafe.application.CafeService;
 import com.cafe.swhackathonserver.cafe.application.dto.CafeDetailDto;
 import com.cafe.swhackathonserver.cafe.application.dto.CafeSimpleDto;
 import com.cafe.swhackathonserver.cafe.presentation.dto.request.CafeCreateRequest;
 import com.cafe.swhackathonserver.doc.ApiDoc;
-
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import io.swagger.annotations.ApiOperation;
+import java.math.BigDecimal;
+import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/cafe")
