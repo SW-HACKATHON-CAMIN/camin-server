@@ -102,7 +102,10 @@ public class CafeService {
         for (CafeSection cafeSection : cafeSections) {
             sum += cafeSection.getStatus();
         }
-        return sum / size;
+        if(sum < 2) return 0;
+        if(sum < 5) return 1;
+        if(sum < 7) return 2;
+        return 3;
     }
 
     @Transactional(readOnly = true)
