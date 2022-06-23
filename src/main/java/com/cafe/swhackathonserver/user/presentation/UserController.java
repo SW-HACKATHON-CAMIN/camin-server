@@ -6,14 +6,12 @@ import com.cafe.swhackathonserver.user.application.dto.AuthResponse;
 import com.cafe.swhackathonserver.user.application.dto.UserAdminStatusRequest;
 import com.cafe.swhackathonserver.user.domain.User;
 import com.cafe.swhackathonserver.user.presentation.dto.request.UserLikeRequest;
-
 import io.swagger.annotations.ApiOperation;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
