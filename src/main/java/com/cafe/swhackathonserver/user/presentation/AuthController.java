@@ -39,6 +39,7 @@ public class AuthController {
         return ResponseEntity.ok(user.toAuthResponse());
     }
 
+    @ApiOperation(value = ApiDoc.KAKAO_LOGIN)
     @PostMapping("/kakao/token")
     public ResponseEntity<AuthResponse> loginWithKakao(@RequestBody KakaoRequest kakaoRequest) {
         // 1. 코드 값으로 토큰 발급
