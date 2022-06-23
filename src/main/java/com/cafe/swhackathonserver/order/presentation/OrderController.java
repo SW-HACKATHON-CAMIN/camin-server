@@ -103,4 +103,11 @@ public class OrderController {
 
         return ResponseEntity.ok(orderResponse);
     }
+
+    @ApiOperation(value = ApiDoc.ADMIN_GET_ORDERES)
+    @GetMapping("/cafe/{cafeId}")
+    public ResponseEntity<List<OrderResponse>> findOrderes(@PathVariable Long cafeId){
+        List<OrderResponse> response = orderService.findOrderedByCafeId(cafeId);
+        return ResponseEntity.ok(response);
+    }
 }

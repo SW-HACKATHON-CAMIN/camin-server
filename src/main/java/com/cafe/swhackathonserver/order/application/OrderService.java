@@ -1,5 +1,8 @@
 package com.cafe.swhackathonserver.order.application;
 
+import com.cafe.swhackathonserver.cafe.domain.Cafe;
+import com.cafe.swhackathonserver.cafe.domain.repository.CafeRepository;
+import com.cafe.swhackathonserver.exception.cafe.CafeNotFoundException;
 import com.cafe.swhackathonserver.exception.order.OrderNotFoundException;
 import com.cafe.swhackathonserver.exception.section.SectionNotFoundException;
 import com.cafe.swhackathonserver.order.application.dto.OrderDetailResponse;
@@ -16,11 +19,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final CafeRepository cafeRepository;
 
     public OrderResponse findById(Long id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
@@ -69,5 +74,12 @@ public class OrderService {
         orderResponse.setOrderDetails(getDetailResponseList(savedOrder.getOrderDetails()));
 
         return orderResponse;
+    }
+
+    @Transactional
+    public List<OrderResponse> findOrderedByCafeId(Long id){
+        Cafe cafe = cafeRepository.findById(id).orElseThrow(CafeNotFoundException::new);
+        List<Order> orders = orderRepository.findOrderByCafe(cafe);
+        return orders.stream().map(Order::toOrderResponse).collect(Collectors.toList());
     }
 }
