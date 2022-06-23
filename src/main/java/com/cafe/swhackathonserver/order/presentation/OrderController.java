@@ -6,7 +6,6 @@ import com.cafe.swhackathonserver.menu.application.MenuService;
 import com.cafe.swhackathonserver.order.application.OrderDetailService;
 import com.cafe.swhackathonserver.order.application.OrderService;
 import com.cafe.swhackathonserver.order.application.dto.OrderDetailRequest;
-import com.cafe.swhackathonserver.order.application.dto.OrderDetailResponse;
 import com.cafe.swhackathonserver.order.application.dto.OrderRequest;
 import com.cafe.swhackathonserver.order.application.dto.OrderResponse;
 import com.cafe.swhackathonserver.order.domain.Order;
@@ -15,10 +14,7 @@ import com.cafe.swhackathonserver.user.application.UserService;
 import com.cafe.swhackathonserver.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +28,11 @@ public class OrderController {
     private final OrderDetailService orderDetailService;
     private final CafeService cafeService;
     private final MenuService menuService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponse> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.findById(id));
+    }
 
     @PostMapping
     public ResponseEntity<OrderResponse> saveOrder(@RequestBody OrderRequest orderRequest) {
@@ -68,15 +69,8 @@ public class OrderController {
 
         // 5. dto 형태로 변환
         List<OrderDetail> savedOrderDetailList = orderDetailService.saveList(orderDetailList);
-
-        List<OrderDetailResponse> orderDetailResponseList = new ArrayList<>();
-        for (OrderDetail orderDetail : savedOrderDetailList) {
-            orderDetailResponseList.add(orderDetail.toOrderDetailResponse());
-
-        }
-
         OrderResponse orderResponse = savedOrder.toOrderResponse();
-        orderResponse.setOrderDetailResponseList(orderDetailResponseList);
+        orderResponse.setOrderDetailResponseList(orderService.getDetailResponseList(savedOrderDetailList));
 
         return ResponseEntity.ok(orderResponse);
     }
