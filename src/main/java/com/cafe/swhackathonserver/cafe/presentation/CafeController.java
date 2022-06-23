@@ -1,10 +1,14 @@
 package com.cafe.swhackathonserver.cafe.presentation;
 
 import com.cafe.swhackathonserver.cafe.application.CafeService;
+import com.cafe.swhackathonserver.cafe.application.dto.CafeDetailDto;
 import com.cafe.swhackathonserver.cafe.presentation.dto.request.CafeCreateRequest;
+import com.cafe.swhackathonserver.doc.ApiDoc;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import io.swagger.annotations.ApiOperation;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,5 +29,12 @@ public class CafeController {
     public ResponseEntity<Long> delete(@PathVariable Long cafeId){
         Long id = cafeService.delete(cafeId);
         return ResponseEntity.ok(id);
+    }
+
+    @ApiOperation(value = ApiDoc.FIND_CAFE)
+    @GetMapping("/{cafeId}")
+    public ResponseEntity<CafeDetailDto> find(@PathVariable Long cafeId){
+        CafeDetailDto response = cafeService.findById(cafeId);
+        return ResponseEntity.ok(response);
     }
 }
