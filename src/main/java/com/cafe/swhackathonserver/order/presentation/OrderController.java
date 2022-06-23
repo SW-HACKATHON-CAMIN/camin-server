@@ -2,6 +2,7 @@ package com.cafe.swhackathonserver.order.presentation;
 
 import com.cafe.swhackathonserver.cafe.application.CafeService;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
+import com.cafe.swhackathonserver.doc.ApiDoc;
 import com.cafe.swhackathonserver.menu.application.MenuService;
 import com.cafe.swhackathonserver.order.application.OrderDetailService;
 import com.cafe.swhackathonserver.order.application.OrderService;
@@ -12,6 +13,7 @@ import com.cafe.swhackathonserver.order.domain.Order;
 import com.cafe.swhackathonserver.order.domain.OrderDetail;
 import com.cafe.swhackathonserver.user.application.UserService;
 import com.cafe.swhackathonserver.user.domain.User;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +31,13 @@ public class OrderController {
     private final CafeService cafeService;
     private final MenuService menuService;
 
+    @ApiOperation(value = ApiDoc.FIND_ORDER)
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.findById(id));
     }
 
+    @ApiOperation(value = ApiDoc.CREATE_ORDER)
     @PostMapping
     public ResponseEntity<OrderResponse> saveOrder(@RequestBody OrderRequest orderRequest) {
         List<OrderDetail> orderDetailList = new ArrayList<>();

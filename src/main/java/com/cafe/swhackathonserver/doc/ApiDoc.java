@@ -21,4 +21,6 @@ public class ApiDoc {
     public static final String DELETE_MENU = "메뉴 삭제";
     public static final String FIND_ALL_CATEGORY = "모든 카테고리 조회";
     public static final String KAKAO_LOGIN = "카카오 로그인";
+    public static final String FIND_ORDER = "주문 조회";
+    public static final String CREATE_ORDER = "주문 생성";
 }
