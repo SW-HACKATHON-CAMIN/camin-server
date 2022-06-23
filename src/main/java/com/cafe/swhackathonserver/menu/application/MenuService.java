@@ -7,11 +7,11 @@ import com.cafe.swhackathonserver.exception.menu.MenuNotFoundException;
 import com.cafe.swhackathonserver.menu.application.dto.MenuCreateDto;
 import com.cafe.swhackathonserver.menu.domain.Menu;
 import com.cafe.swhackathonserver.menu.domain.repository.MenuRepository;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ public class MenuService {
     private final CafeRepository cafeRepository;
 
     @Transactional
-    public Long create(Long cafeId, MenuCreateDto menuCreateDto){
+    public Long create(Long cafeId, MenuCreateDto menuCreateDto) {
         Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(CafeNotFoundException::new);
 
         Menu savedMenu = menuRepository.save(new Menu(cafe, menuCreateDto));
@@ -29,9 +29,18 @@ public class MenuService {
     }
 
     @Transactional
-    public Long delete(Long menuId){
+    public Long delete(Long menuId) {
         Menu menu = menuRepository.findById(menuId).orElseThrow(MenuNotFoundException::new);
         menuRepository.delete(menu);
         return menuId;
+    }
+
+    public Menu findById(Long id) {
+        Optional<Menu> menuOptional = menuRepository.findById(id);
+        if (menuOptional.isEmpty()) {
+            throw new MenuNotFoundException();
+        }
+
+        return menuOptional.get();
     }
 }
