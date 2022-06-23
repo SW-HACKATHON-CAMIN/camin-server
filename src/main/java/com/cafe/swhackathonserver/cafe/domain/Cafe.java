@@ -136,5 +136,9 @@ public class Cafe extends BaseEntity {
     }
 
     public void unlike(Like like) {this.likes.remove(like); }
+
+    public void updateCafeName(String cafeName){
+        this.cafeName = cafeName;
+    }
 }
 

@@ -4,7 +4,10 @@ import com.cafe.swhackathonserver.cafe.application.CafeService;
 import com.cafe.swhackathonserver.cafe.application.dto.CafeDetailDto;
 import com.cafe.swhackathonserver.cafe.application.dto.CafeSimpleDto;
 import com.cafe.swhackathonserver.cafe.presentation.dto.request.CafeCreateRequest;
+import com.cafe.swhackathonserver.cafe.presentation.dto.request.CafeUpdateRequest;
 import com.cafe.swhackathonserver.doc.ApiDoc;
+
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +55,10 @@ public class CafeController {
         return ResponseEntity.ok(response);
     }
 
-
+    @ApiOperation(value = ApiDoc.CAFFE_CONTENT_UPDATE)
+    @PostMapping("/{cafeId}")
+    public ResponseEntity<Boolean> updateCafeContent(@PathVariable Long cafeId, @RequestBody CafeUpdateRequest request){
+        cafeService.updateCafe(cafeId, request.getCafeName());
+        return ResponseEntity.ok(true);
+    }
 }

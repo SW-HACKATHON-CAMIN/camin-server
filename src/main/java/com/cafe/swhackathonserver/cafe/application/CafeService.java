@@ -110,4 +110,10 @@ public class CafeService {
         Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(CafeNotFoundException::new);
         return cafe;
     }
+
+    @Transactional
+    public void updateCafe(Long id,String cafeName){
+        Cafe cafe = this.findCafeById(id);
+        cafe.updateCafeName(cafeName);
+    }
 }
