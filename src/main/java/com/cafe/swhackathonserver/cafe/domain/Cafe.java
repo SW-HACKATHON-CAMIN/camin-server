@@ -128,5 +128,11 @@ public class Cafe extends BaseEntity {
     public void addMenu(Menu menu){
         this.menus.add(menu);
     }
+
+    public void like(Like like){
+        this.likes.add(like);
+    }
+
+    public void unlike(Like like) {this.likes.remove(like); }
 }
 

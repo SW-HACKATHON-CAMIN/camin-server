@@ -12,5 +12,6 @@ public class Message {
     public static final String MENU_NOT_FOUND = "존재하지 않는 메뉴입니다.";
     public static final String USER_DUPLICATED = "이미 가입한 회원입니다.";
     public static final String IMAGE_UPLOAD_FAIL = "이미지 업로드에 실패하였습니다.";
+    public static final String LIKE_NOT_FOUND = "찜 정보가 존재하지 않습니다.";
 }
 

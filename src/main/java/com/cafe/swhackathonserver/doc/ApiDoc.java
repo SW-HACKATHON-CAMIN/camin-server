@@ -7,4 +7,6 @@ public class ApiDoc {
     public static final String FIND_USER_BY_ID = "아이디로 사용자 조회";
     public static final String UPLOAD_IMAGE = "이미지 한장 업로드";
     public static final String UPLOAD_IMAGE_LIST = "이미지 여러장 업로드";
+    public static final String LIKE = "찜하기";
+    public static final String UNLIKE = "찜하기 취소";
 }
