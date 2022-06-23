@@ -16,7 +16,7 @@ public class SectionInfoDto {
     private int totalCount;
     private int status;
     public SectionInfoDto(CafeSection cafeSection){
-        this.id = cafeSection.getSection().getId();
+        this.id = cafeSection.getId();
         this.name = cafeSection.getSection().getName();
         this.count = cafeSection.getCount();
         this.totalCount = cafeSection.getTotalCount();
