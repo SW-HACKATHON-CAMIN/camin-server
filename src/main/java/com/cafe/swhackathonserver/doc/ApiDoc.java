@@ -11,7 +11,7 @@ public class ApiDoc {
     public static final String UNLIKE = "찜하기 취소";
     public static final String FIND_CAFE = "카페 모든 정보 조회";
     public static final String FIND_NEAR_FITERED_CAFE = "반경 1KM 카페 필터 조회";
-    public static final String FIND_NEAR_CAFE = "찜하기 취소";
+    public static final String LIKE_CAFES = "찜한 카페들 조회";
     public static final String CREATE_CAFE = "카페 생성";
     public static final String CREATE_SECTION = "섹션 생성";
     public static final String CREATE_CATEGORY = "카테고리 생성";

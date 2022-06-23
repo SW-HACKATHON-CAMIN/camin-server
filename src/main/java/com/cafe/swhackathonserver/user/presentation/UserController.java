@@ -1,5 +1,8 @@
 package com.cafe.swhackathonserver.user.presentation;
 
+import java.util.List;
+
+import com.cafe.swhackathonserver.cafe.application.dto.CafeFavoriteDto;
 import com.cafe.swhackathonserver.doc.ApiDoc;
 import com.cafe.swhackathonserver.user.application.UserService;
 import com.cafe.swhackathonserver.user.application.dto.AuthResponse;
@@ -46,6 +49,13 @@ public class UserController {
     @DeleteMapping("/unlike")
     public ResponseEntity<Boolean> unLikeCafe(@RequestBody UserLikeRequest request) {
         Boolean response = userService.unLikeCafe(request.getUserId(), request.getCafeId());
+        return ResponseEntity.ok(response);
+    }
+
+    @ApiOperation(value = ApiDoc.LIKE_CAFES)
+    @GetMapping("/favorite")
+    public ResponseEntity<List<CafeFavoriteDto>> findLikeCafe(@RequestParam("userId") Long userId){
+        List<CafeFavoriteDto> response = userService.findLikeCafes(userId);
         return ResponseEntity.ok(response);
     }
 }

@@ -39,7 +39,7 @@ public class CafeController {
 
     @ApiOperation(value = ApiDoc.FIND_CAFE)
     @GetMapping("/{cafeId}")
-    public ResponseEntity<CafeDetailDto> find(@PathVariable Long cafeId, @RequestParam Long userId) {
+    public ResponseEntity<CafeDetailDto> find(@PathVariable Long cafeId, @RequestParam("userId") Long userId) {
         CafeDetailDto response = cafeService.findById(cafeId, userId);
         return ResponseEntity.ok(response);
     }
@@ -53,4 +53,6 @@ public class CafeController {
         List<CafeSimpleDto> response = cafeService.findByFilter(latitude, longitude, categoryIds);
         return ResponseEntity.ok(response);
     }
+
+
 }
