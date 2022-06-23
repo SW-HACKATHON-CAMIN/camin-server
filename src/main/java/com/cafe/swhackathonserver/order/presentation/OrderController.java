@@ -1,7 +1,9 @@
 package com.cafe.swhackathonserver.order.presentation;
 
+import com.cafe.swhackathonserver.cafe.application.CafeSectionService;
 import com.cafe.swhackathonserver.cafe.application.CafeService;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
+import com.cafe.swhackathonserver.cafe.domain.section.CafeSection;
 import com.cafe.swhackathonserver.doc.ApiDoc;
 import com.cafe.swhackathonserver.menu.application.MenuService;
 import com.cafe.swhackathonserver.order.application.OrderDetailService;
@@ -31,6 +33,7 @@ public class OrderController {
     private final OrderDetailService orderDetailService;
     private final CafeService cafeService;
     private final MenuService menuService;
+    private final CafeSectionService cafeSectionService;
 
     @ApiOperation(value = ApiDoc.FIND_ORDER)
     @GetMapping("/{id}")
@@ -43,13 +46,19 @@ public class OrderController {
     public ResponseEntity<OrderResponse> saveOrder(@RequestBody OrderRequest orderRequest) {
         List<OrderDetail> orderDetailList = new ArrayList<>();
 
-        // 1. 유저 및 카페 정보
+        // 1. 유저,카페, 섹션 정보
         User user = userService.findById(orderRequest.getUserId());
         Cafe cafe = cafeService.findCafeById(orderRequest.getCafeId());
+        CafeSection cafeSection = cafeSectionService.findById(orderRequest.getCafeSectionId());
 
         // 2. 주문 생성
-        Order order = new Order(user, cafe, orderService.createOrderNo(user.getId()));
+        Order order = orderRequest.toOrder();
+        order.setUser(user);
+        order.setCafe(cafe);
+        order.setCafeSection(cafeSection);
+        order.setOrderNo(orderService.createOrderNo(user.getId()));
         Order savedOrder = orderService.save(order);
+
         int totalPrice = 0;
         int totalQauntity = 0;
 
