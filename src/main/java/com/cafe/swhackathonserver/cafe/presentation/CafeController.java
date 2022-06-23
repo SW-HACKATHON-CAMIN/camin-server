@@ -2,9 +2,12 @@ package com.cafe.swhackathonserver.cafe.presentation;
 
 import com.cafe.swhackathonserver.cafe.application.CafeService;
 import com.cafe.swhackathonserver.cafe.presentation.dto.request.CafeCreateRequest;
+import com.cafe.swhackathonserver.doc.ApiDoc;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import io.swagger.annotations.ApiOperation;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class CafeController {
     private final CafeService cafeService;
 
+    @ApiOperation(value = ApiDoc.CREATE_CAFE)
     @PostMapping
     public ResponseEntity<Long> create(@RequestBody CafeCreateRequest request){
 
@@ -21,6 +25,7 @@ public class CafeController {
         return ResponseEntity.ok(createdId);
     }
 
+    @ApiOperation(value = ApiDoc.DELETE_CAFE)
     @DeleteMapping("/{cafeId}")
     public ResponseEntity<Long> delete(@PathVariable Long cafeId){
         Long id = cafeService.delete(cafeId);
