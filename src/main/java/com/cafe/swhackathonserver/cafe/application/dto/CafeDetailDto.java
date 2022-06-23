@@ -24,6 +24,7 @@ public class CafeDetailDto {
     private Long managerId;
     private String managerName;
     private String infoImage;
+    private String mainImage;
     private List<String> images = new ArrayList<>();
     private String address;
     private String phone;
@@ -39,6 +40,7 @@ public class CafeDetailDto {
         cafeId = cafe.getId();
         managerId = cafe.getManager().getId();
         managerName = cafe.getManager().getName();
+        mainImage = cafe.getMainImage();
         infoImage = cafe.getInfoImage();
         images = cafe.getImages().stream().map(CafeImage::getUrl).collect(Collectors.toList());
         address = cafe.getAddress();

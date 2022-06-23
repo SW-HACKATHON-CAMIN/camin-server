@@ -40,6 +40,7 @@ public class CafeService {
 
         Cafe newCafe = Cafe.builder()
                            .infoImage(cafeCreateDto.getInfoImage())
+                           .mainImage(cafeCreateDto.getMainImage())
                            .address(cafeCreateDto.getAddress())
                            .phone(cafeCreateDto.getPhone())
                            .introduction(cafeCreateDto.getIntroduction())
@@ -100,4 +101,6 @@ public class CafeService {
         }
         return sum / size;
     }
+
+
 }

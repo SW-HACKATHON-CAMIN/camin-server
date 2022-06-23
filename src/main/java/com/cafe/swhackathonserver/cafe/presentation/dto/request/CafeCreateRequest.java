@@ -13,6 +13,7 @@ import lombok.Setter;
 public class CafeCreateRequest {
     private Long managerId;
     private String infoImage;
+    private String mainImage;
     private List<String> cafeImages;
     private String address;
     private String phone;
