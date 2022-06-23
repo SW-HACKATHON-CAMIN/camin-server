@@ -13,11 +13,13 @@ public class SectionInfoDto {
     private Long id;
     private String name;
     private int count;
+    private int totalCount;
     private int status;
     public SectionInfoDto(CafeSection cafeSection){
         this.id = cafeSection.getSection().getId();
         this.name = cafeSection.getSection().getName();
         this.count = cafeSection.getCount();
+        this.totalCount = cafeSection.getTotalCount();
         this.status = cafeSection.getStatus();
     }
 }

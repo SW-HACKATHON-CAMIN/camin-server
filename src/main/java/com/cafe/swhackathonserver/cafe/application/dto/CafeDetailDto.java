@@ -2,8 +2,6 @@ package com.cafe.swhackathonserver.cafe.application.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.cafe.swhackathonserver.cafe.application.dto.category.CategoryDto;
@@ -11,8 +9,6 @@ import com.cafe.swhackathonserver.cafe.application.dto.menu.MenuInfoDto;
 import com.cafe.swhackathonserver.cafe.application.dto.section.SectionInfoDto;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
 import com.cafe.swhackathonserver.cafe.domain.cafeimage.CafeImage;
-import com.cafe.swhackathonserver.cafe.domain.section.CafeSection;
-import com.cafe.swhackathonserver.user.domain.like.Like;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
