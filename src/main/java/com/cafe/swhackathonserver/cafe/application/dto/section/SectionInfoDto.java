@@ -1,7 +1,6 @@
 package com.cafe.swhackathonserver.cafe.application.dto.section;
 
 import com.cafe.swhackathonserver.cafe.domain.section.CafeSection;
-import com.cafe.swhackathonserver.cafe.domain.section.Section;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
