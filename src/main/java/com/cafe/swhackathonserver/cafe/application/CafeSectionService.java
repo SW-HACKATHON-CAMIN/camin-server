@@ -14,4 +14,11 @@ public class CafeSectionService {
     public CafeSection findById(Long id) {
         return cafeSectionRepository.findById(id).orElseThrow(CafeSectionNotFoundException::new);
     }
+
+    public CafeSection updateCountById(Long id) {
+        CafeSection cafeSection = findById(id);
+        cafeSection.setCount(cafeSection.getCount() - 1);
+        
+        return cafeSectionRepository.save(cafeSection);
+    }
 }

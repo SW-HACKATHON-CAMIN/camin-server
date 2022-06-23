@@ -24,9 +24,11 @@ public class OrderResponse {
 
     private int reservationMinute;
 
+    private int status;
+
     private List<OrderDetailResponse> orderDetails;
 
-    public OrderResponse(Long id, Long userId, Long cafeId, Long cafeSectionId, String orderNo, int totalPrice, int totalQuantity, int reservationHour, int reservationMinute) {
+    public OrderResponse(Long id, Long userId, Long cafeId, Long cafeSectionId, String orderNo, int totalPrice, int totalQuantity, int reservationHour, int reservationMinute, int status) {
         this.id = id;
         this.userId = userId;
         this.cafeId = cafeId;
@@ -36,5 +38,6 @@ public class OrderResponse {
         this.totalQuantity = totalQuantity;
         this.reservationHour = reservationHour;
         this.reservationMinute = reservationMinute;
+        this.status = status;
     }
 }

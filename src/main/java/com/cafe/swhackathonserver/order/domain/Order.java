@@ -76,7 +76,7 @@ public class Order extends BaseEntity {
     }
 
     public OrderResponse toOrderResponse() {
-        return new OrderResponse(id, user.getId(), cafe.getId(), cafeSection.getId(), orderNo, totalPrice, totalQuantity, reservationHour, reservationMinute);
+        return new OrderResponse(id, user.getId(), cafe.getId(), cafeSection.getId(), orderNo, totalPrice, totalQuantity, reservationHour, reservationMinute, status);
     }
 
     public void setTotalPrice(int totalPrice) {
@@ -85,5 +85,9 @@ public class Order extends BaseEntity {
 
     public void setTotalQuantity(int totalQuantity) {
         this.totalQuantity = totalQuantity;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

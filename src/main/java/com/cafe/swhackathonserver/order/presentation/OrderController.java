@@ -11,6 +11,7 @@ import com.cafe.swhackathonserver.order.application.OrderService;
 import com.cafe.swhackathonserver.order.application.dto.OrderDetailRequest;
 import com.cafe.swhackathonserver.order.application.dto.OrderRequest;
 import com.cafe.swhackathonserver.order.application.dto.OrderResponse;
+import com.cafe.swhackathonserver.order.application.dto.OrderStatusRequest;
 import com.cafe.swhackathonserver.order.domain.Order;
 import com.cafe.swhackathonserver.order.domain.OrderDetail;
 import com.cafe.swhackathonserver.user.application.UserService;
@@ -85,6 +86,20 @@ public class OrderController {
         List<OrderDetail> savedOrderDetailList = orderDetailService.saveList(orderDetailList);
         OrderResponse orderResponse = savedOrder.toOrderResponse();
         orderResponse.setOrderDetails(orderService.getDetailResponseList(savedOrderDetailList));
+
+        return ResponseEntity.ok(orderResponse);
+    }
+
+    @ApiOperation(value = ApiDoc.UPDATE_ORDER_STATUS)
+    @PostMapping("/status")
+    public ResponseEntity<OrderResponse> updateStatus(@RequestBody OrderStatusRequest orderStatusRequest) {
+        // 1. 주문 상태 업데이트
+        OrderResponse orderResponse = orderService.updateStatus(orderStatusRequest.getOrderId(), orderStatusRequest.getStatus());
+
+        // 2. 섹션 자리 수 변경
+        if (orderResponse.getStatus() == 1) { // 주문 성공
+            CafeSection cafeSection = cafeSectionService.updateCountById(orderResponse.getCafeSectionId());
+        }
 
         return ResponseEntity.ok(orderResponse);
     }

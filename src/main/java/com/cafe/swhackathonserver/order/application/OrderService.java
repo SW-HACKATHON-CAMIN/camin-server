@@ -1,6 +1,7 @@
 package com.cafe.swhackathonserver.order.application;
 
 import com.cafe.swhackathonserver.exception.order.OrderNotFoundException;
+import com.cafe.swhackathonserver.exception.section.SectionNotFoundException;
 import com.cafe.swhackathonserver.order.application.dto.OrderDetailResponse;
 import com.cafe.swhackathonserver.order.application.dto.OrderResponse;
 import com.cafe.swhackathonserver.order.domain.Order;
@@ -8,6 +9,7 @@ import com.cafe.swhackathonserver.order.domain.OrderDetail;
 import com.cafe.swhackathonserver.order.domain.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,5 +57,17 @@ public class OrderService {
         }
 
         return orderDetailResponseList;
+    }
+
+    @Transactional
+    public OrderResponse updateStatus(Long id, int status) {
+        Order order = orderRepository.findById(id).orElseThrow(SectionNotFoundException::new);
+        order.setStatus(status);
+        Order savedOrder = orderRepository.save(order);
+
+        OrderResponse orderResponse = savedOrder.toOrderResponse();
+        orderResponse.setOrderDetails(getDetailResponseList(savedOrder.getOrderDetails()));
+
+        return orderResponse;
     }
 }

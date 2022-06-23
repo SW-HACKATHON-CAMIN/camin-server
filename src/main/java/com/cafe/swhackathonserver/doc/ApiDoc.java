@@ -24,6 +24,7 @@ public class ApiDoc {
     public static final String KAKAO_LOGIN = "카카오 로그인";
     public static final String FIND_ORDER = "주문 조회";
     public static final String CREATE_ORDER = "주문 생성";
+    public static final String UPDATE_ORDER_STATUS = "주문 상태 변경(0:주문대기, 1:주문성공, 2:주문실패)";
     public static final String FIND_ADMINS_SECTION = "매니저의 SECTION 조";
     public static final String CHANGE_SECTION_STATUS = "구역 혼잡도 변경";
 }
