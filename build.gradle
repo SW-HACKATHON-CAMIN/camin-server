@@ -27,6 +27,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'com.jlefebure:spring-boot-starter-minio:1.1'
+    implementation 'com.google.code.gson:gson:2.7'
 }
 
 tasks.named('test') {
