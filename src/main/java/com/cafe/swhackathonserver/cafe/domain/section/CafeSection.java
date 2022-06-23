@@ -1,12 +1,11 @@
 package com.cafe.swhackathonserver.cafe.domain.section;
 
-import javax.persistence.*;
-
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -16,6 +15,8 @@ public class CafeSection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private int totalCount;
 
     private int count;
 
@@ -27,10 +28,9 @@ public class CafeSection {
     @ManyToOne(fetch = FetchType.LAZY)
     private Section section;
 
-    public CafeSection(Cafe cafe, Section section, int count) {
+    public CafeSection(Cafe cafe, Section section, int totalCount) {
         this.cafe = cafe;
         this.section = section;
-        this.count = count;
+        this.totalCount = totalCount;
     }
-
 }
