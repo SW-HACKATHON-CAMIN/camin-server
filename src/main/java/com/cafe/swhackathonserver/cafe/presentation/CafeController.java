@@ -7,7 +7,6 @@ import com.cafe.swhackathonserver.cafe.application.CafeService;
 import com.cafe.swhackathonserver.cafe.application.dto.CafeDetailDto;
 import com.cafe.swhackathonserver.cafe.application.dto.CafeSimpleDto;
 import com.cafe.swhackathonserver.cafe.presentation.dto.request.CafeCreateRequest;
-import com.cafe.swhackathonserver.category.domain.CafeCategory;
 import com.cafe.swhackathonserver.doc.ApiDoc;
 
 import org.springframework.http.ResponseEntity;
@@ -40,8 +39,8 @@ public class CafeController {
 
     @ApiOperation(value = ApiDoc.FIND_CAFE)
     @GetMapping("/{cafeId}")
-    public ResponseEntity<CafeDetailDto> find(@PathVariable Long cafeId) {
-        CafeDetailDto response = cafeService.findById(cafeId);
+    public ResponseEntity<CafeDetailDto> find(@PathVariable Long cafeId, @RequestParam Long userId) {
+        CafeDetailDto response = cafeService.findById(cafeId, userId);
         return ResponseEntity.ok(response);
     }
 

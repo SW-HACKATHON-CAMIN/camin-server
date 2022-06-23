@@ -2,6 +2,7 @@ package com.cafe.swhackathonserver.cafe.application;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.cafe.swhackathonserver.cafe.application.dto.CafeDetailDto;
@@ -69,9 +70,10 @@ public class CafeService {
     }
 
     @Transactional(readOnly = true)
-    public CafeDetailDto findById(Long cafeId) {
+    public CafeDetailDto findById(Long cafeId, Long userId) {
         Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(CafeNotFoundException::new);
-        return new CafeDetailDto(cafe);
+        long id = Objects.isNull(userId) ? -1 : userId;
+        return new CafeDetailDto(cafe, id);
     }
 
     @Transactional(readOnly = true)
