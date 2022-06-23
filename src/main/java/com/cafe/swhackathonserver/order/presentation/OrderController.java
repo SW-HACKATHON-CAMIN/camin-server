@@ -53,7 +53,7 @@ public class OrderController {
         int totalQauntity = 0;
 
         // 3. 주문 상세정보 저장 및 총합 계산
-        for (OrderDetailRequest orderDetailRequest : orderRequest.getOrderDetailRequestList()) {
+        for (OrderDetailRequest orderDetailRequest : orderRequest.getOrderDetails()) {
             OrderDetail orderDetail = orderDetailRequest.toOrderDetail();
             orderDetail.setOrder(savedOrder);
             orderDetail.setMenu(menuService.findById(orderDetailRequest.getMenuId()));
@@ -74,7 +74,7 @@ public class OrderController {
         // 5. dto 형태로 변환
         List<OrderDetail> savedOrderDetailList = orderDetailService.saveList(orderDetailList);
         OrderResponse orderResponse = savedOrder.toOrderResponse();
-        orderResponse.setOrderDetailResponseList(orderService.getDetailResponseList(savedOrderDetailList));
+        orderResponse.setOrderDetails(orderService.getDetailResponseList(savedOrderDetailList));
 
         return ResponseEntity.ok(orderResponse);
     }

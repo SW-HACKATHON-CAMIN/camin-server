@@ -18,7 +18,7 @@ public class OrderResponse {
 
     private int totalQuantity;
 
-    private List<OrderDetailResponse> orderDetailResponseList;
+    private List<OrderDetailResponse> orderDetails;
 
     public OrderResponse(Long id, Long userId, Long cafeId, String orderNo, int totalPrice, int totalQuantity) {
         this.id = id;
