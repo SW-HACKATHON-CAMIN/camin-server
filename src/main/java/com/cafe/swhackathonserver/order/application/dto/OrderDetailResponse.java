@@ -9,7 +9,7 @@ import lombok.Data;
 public class OrderDetailResponse {
     private Long id;
 
-    private MenuResponse menuResponse;
+    private MenuResponse menu;
 
     private int price;
 

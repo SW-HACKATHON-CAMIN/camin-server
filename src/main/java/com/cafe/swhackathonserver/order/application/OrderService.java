@@ -28,7 +28,7 @@ public class OrderService {
 
         Order order = orderOptional.get();
         OrderResponse orderResponse = order.toOrderResponse();
-        orderResponse.setOrderDetailResponseList(getDetailResponseList(order.getOrderDetails()));
+        orderResponse.setOrderDetails(getDetailResponseList(order.getOrderDetails()));
 
         return orderResponse;
     }
