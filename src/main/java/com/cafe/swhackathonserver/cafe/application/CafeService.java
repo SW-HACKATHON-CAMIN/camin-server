@@ -1,9 +1,15 @@
 package com.cafe.swhackathonserver.cafe.application;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cafe.swhackathonserver.cafe.application.dto.CafeDetailDto;
+import com.cafe.swhackathonserver.cafe.application.dto.CafeSimpleDto;
 import com.cafe.swhackathonserver.cafe.domain.Cafe;
+import com.cafe.swhackathonserver.cafe.domain.repository.CafeCategoryRepository;
+import com.cafe.swhackathonserver.cafe.domain.section.CafeSection;
+import com.cafe.swhackathonserver.category.domain.CafeCategory;
 import com.cafe.swhackathonserver.category.domain.Category;
 import com.cafe.swhackathonserver.cafe.domain.repository.CafeRepository;
 import com.cafe.swhackathonserver.category.application.CategoryRepository;
@@ -26,20 +32,21 @@ public class CafeService {
     private final UserRepository userRepository;
     private final SectionRepository sectionRepository;
     private final CategoryRepository categoryRepository;
+    private final CafeCategoryRepository cafeCategoryRepository;
 
     @Transactional
     public Long create(CafeCreateRequest cafeCreateDto) {
 
         Cafe newCafe = Cafe.builder()
-                         .infoImage(cafeCreateDto.getInfoImage())
-                         .address(cafeCreateDto.getAddress())
-                         .phone(cafeCreateDto.getPhone())
-                         .introduction(cafeCreateDto.getIntroduction())
-                         .cafeName(cafeCreateDto.getCafeName())
-                         .event(cafeCreateDto.getEvent())
-                         .latitude(cafeCreateDto.getLatitude())
-                         .longitude(cafeCreateDto.getLongitude())
-                         .build();
+                           .infoImage(cafeCreateDto.getInfoImage())
+                           .address(cafeCreateDto.getAddress())
+                           .phone(cafeCreateDto.getPhone())
+                           .introduction(cafeCreateDto.getIntroduction())
+                           .cafeName(cafeCreateDto.getCafeName())
+                           .event(cafeCreateDto.getEvent())
+                           .latitude(cafeCreateDto.getLatitude())
+                           .longitude(cafeCreateDto.getLongitude())
+                           .build();
 
         User user = userRepository.findById(cafeCreateDto.getManagerId()).orElseThrow();
         List<Category> categories = categoryRepository.findAllById(cafeCreateDto.getCategoryIds());
@@ -55,16 +62,40 @@ public class CafeService {
     }
 
     @Transactional
-    public Long delete(Long id){
+    public Long delete(Long id) {
         Cafe cafe = cafeRepository.findById(id).orElseThrow(CafeNotFoundException::new);
         cafeRepository.delete(cafe);
         return id;
     }
 
     @Transactional(readOnly = true)
-    public CafeDetailDto findById(Long cafeId){
+    public CafeDetailDto findById(Long cafeId) {
         Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(CafeNotFoundException::new);
         return new CafeDetailDto(cafe);
     }
 
+    @Transactional(readOnly = true)
+    public List<CafeSimpleDto> findByFilter(BigDecimal latitude, BigDecimal longitude, List<Long> categoryIds) {
+        List<CafeCategory> cafeCategories = cafeCategoryRepository.findCafeByLocationAndFilter(latitude, longitude, categoryIds);
+        List<Cafe> cafes = cafeCategories.stream()
+                                         .map(CafeCategory::getCafe)
+                                         .collect(Collectors.toList());
+        return cafes.stream()
+                    .distinct()
+                    .map(cafe -> new CafeSimpleDto(cafe, getAverageStatus(cafe.getCafeSections())))
+                    .collect(Collectors.toList());
+
+
+    }
+
+    private int getAverageStatus(List<CafeSection> cafeSections) {
+        int size = cafeSections.size();
+        if (size == 0)
+            return 0;
+        int sum = 0;
+        for (CafeSection cafeSection : cafeSections) {
+            sum += cafeSection.getStatus();
+        }
+        return sum / size;
+    }
 }
