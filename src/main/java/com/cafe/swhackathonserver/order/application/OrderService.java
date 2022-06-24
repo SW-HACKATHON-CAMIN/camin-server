@@ -80,6 +80,8 @@ public class OrderService {
     public List<OrderResponse> findOrderedByCafeId(Long id){
         Cafe cafe = cafeRepository.findById(id).orElseThrow(CafeNotFoundException::new);
         List<Order> orders = orderRepository.findOrderByCafe(cafe);
-        return orders.stream().map(Order::toOrderResponse).collect(Collectors.toList());
+
+
+        return orders.stream().map(OrderResponse::new).collect(Collectors.toList());
     }
 }
