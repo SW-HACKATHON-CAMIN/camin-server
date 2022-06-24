@@ -109,5 +109,7 @@ public class OrderController {
     public ResponseEntity<List<OrderResponse>> findOrderes(@PathVariable Long cafeId){
         List<OrderResponse> response = orderService.findOrderedByCafeId(cafeId);
         return ResponseEntity.ok(response);
+        // 회원명
+        // 섹션이름
     }
 }
